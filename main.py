@@ -1,6 +1,7 @@
 from apiflask import APIFlask, Schema
-from apiflask.fields import List, String
+from apiflask.fields import List, String, Enum
 from apiflask.validators import Length
+from marshmallow.validate import OneOf
 from game import TicTacToeAI
 from flask_cors import CORS
 from flask import request
@@ -18,22 +19,28 @@ class BoardSchema(Schema):
                required=True)
 
 
+class MoveResultSchema(BoardSchema):
+  status = String(validate=OneOf(['end', 'continue', 'unknown']),
+                  required=True)
+  winner = String(validate=OneOf(['X', 'O', 'Draw', None]), allow_none=True)
+
+
+# used for logging OpenAI request.
 @app.before_request
 def before_request_logging():
   print(request)
   print('Headers:\n', request.headers)
   print('Body:\n', request.get_data())
+  print('\n')
 
 
-@app.route('/human_move', methods=['GET', 'POST'])
+@app.route('/human_move', methods=['POST'])
 @app.input(BoardSchema)
-@app.output(BoardSchema)
-def human_move():
-  json_data = request.get_json()
-  print(json_data)
+@app.output(MoveResultSchema)
+def human_move(json_data):
   try:
     response = game.human_move(json_data['board'])
-    return {'board': response['board']}
+    return response
   except Exception as e:
     return {'error': str(e)}, 400
 
@@ -44,4 +51,4 @@ def privacy():
 
 
 if __name__ == '__main__':
-  app.run(host="0.0.0.0", debug=False)
+  app.run(host="0.0.0.0", debug=True)
