@@ -102,5 +102,5 @@ class TicTacToeAI:
         return {'board': self.board, 'status': 'end', 'winner': winner}
       if self.check_draw():
         return {'board': self.board, 'status': 'end', 'winner': 'Draw'}
-      return {'board': self.board, 'status': 'continue'}
-    return {'board': self.board, 'status': 'unknown'}
+      return {'board': self.board, 'status': 'continue','winner':'No winner'}
+    return {'board': self.board, 'status': 'unknown', 'winner':'No winner'}

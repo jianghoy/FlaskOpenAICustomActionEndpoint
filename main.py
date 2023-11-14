@@ -22,7 +22,7 @@ class BoardSchema(Schema):
 class MoveResultSchema(BoardSchema):
   status = String(validate=OneOf(['end', 'continue', 'unknown']),
                   required=True)
-  winner = String(validate=OneOf(['X', 'O', 'Draw', None]), allow_none=True)
+  winner = String(validate=OneOf(['X', 'O', 'Draw', 'No winner']), required=True)
 
 
 # used for logging OpenAI request.
