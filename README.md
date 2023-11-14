@@ -4,6 +4,7 @@
 This is an example OpenAI custom action endpoint. What it does is hosting a web api for OpenAI GPTs to take it as custom action. The specific action here is a minimax tic-tac-toe algorithm, but you can simply swap it to anything you want.
 
 # How to run the server
+*WIP, add how to install packages using poetry*
 1. If you're using replit:
    1. First click the run on replit button.
    2. Click run button.
