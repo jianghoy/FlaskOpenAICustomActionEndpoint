@@ -46,6 +46,10 @@ def before_request_logging():
   print('Body:\n', request.get_data())
   print('\n')
 
+# Required if you're doing replit deployment.
+@app.get('/')
+def hello_world():
+  return 'hello world'
 
 @app.get('/human_move')
 @app.input(HumanMoveInput, location='query')
