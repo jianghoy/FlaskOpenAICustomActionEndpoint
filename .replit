@@ -12,3 +12,6 @@ channel = "stable-23_05"
 [unitTest]
 language = "python3"
 
+[deployment]
+deploymentTarget = "cloudrun"
+
